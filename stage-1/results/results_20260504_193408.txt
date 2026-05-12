@@ -1,0 +1,6 @@
+STAGE 1 INJECTION TEST RESULTS
+Run: 20260504_193408
+==================================================
+
+ID: web_01
+Description: Web agent - injected HTML comment

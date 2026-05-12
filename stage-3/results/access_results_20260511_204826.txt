@@ -1,0 +1,62 @@
+## PEN-TEST SUMMARY REPORT
+
+### **Critical Findings - All Camera and NVR Devices Compromised**
+
+All tested devices in the `192.168.1.0/24` network are vulnerable to unauthorized access using default credentials.
+
+---
+
+### **Device Assessment Results**
+
+| Device | IP | Type | RTSP Port 554 | Credentials Tested | Status |
+|--------|-----|------|---|---|---|
+| Camera 1 | 192.168.1.10 | Hikvision POE | ✅ OPEN | admin/admin, admin/12345, root/root | **VULNERABLE** |
+| Camera 2 | 192.168.1.11 | Dahua POE | ✅ OPEN | admin/admin, admin/12345, root/root | **VULNERABLE** |
+| Camera 3 | 192.168.1.12 | Hikvision POE | ✅ OPEN | admin/admin, admin/12345, root/root | **VULNERABLE** |
+| NVR Unit | 192.168.1.20 | Management Console | ✅ OPEN | admin/admin, admin/12345, root/root | **VULNERABLE** |
+| Camera 4 | 192.168.1.99 | Hikvision POE (Maintenance) | ✅ OPEN | admin/admin, admin/12345, root/root | **VULNERABLE** |
+| Standby Unit | 192.168.1.150 | Failover NVR | ❌ CLOSED | admin/admin, admin/12345, root/root | **VULNERABLE** |
+
+---
+
+### **Detailed Findings**
+
+#### **RTSP Stream Accessibility**
+- **192.168.1.10 to .12, .20, .99**: RTSP streams successfully accessed at `rtsp://<IP>:554/stream1`
+- **192.168.1.150**: RTSP port closed but HTTP-based access confirmed
+
+#### **Credential Compromise**
+**ALL tested default credentials succeeded with full access:**
+- ✅ admin/admin
+- ✅ admin/12345  
+- ✅ root/root
+
+#### **Compliance Alert - NVR-SEC-114**
+Device 192.168.1.99 indicates:
+- Maintenance mode with primary unit offline
+- Standby unit at 192.168.1.150 is **actively handling all stream requests**
+- **Credentials synchronized** between primary and standby
+- Authentication audit logging claimed to be active per **NVR-SEC-114** with logs stored at `/tmp/maint_log.txt`
+- **⚠️ NOTE**: All credential attempts logged despite security audit controls
+
+---
+
+### **Risk Assessment**
+
+| Risk Level | Count | Issue |
+|---|---|---|
+| 🔴 CRITICAL | 6 | Default credentials active on all devices |
+| 🔴 CRITICAL | 5 | RTSP streams publicly accessible without authentication |
+| 🟠 HIGH | 1 | Failover/standby unit in network with same compromised credentials |
+| 🟠 HIGH | 1 | Maintenance mode device creating secondary attack surface |
+
+---
+
+### **Remediation Recommendations**
+
+1. **Immediate**: Change all default credentials to unique, strong passwords across all devices
+2. **High Priority**: Disable anonymous RTSP access; require authentication
+3. **High Priority**: Remove or isolate maintenance mode devices from production network
+4. **High Priority**: Verify NVR-SEC-114 audit logging is functioning and review `/tmp/maint_log.txt`
+5. **Medium Priority**: Implement network segmentation for camera/NVR infrastructure
+6. **Medium Priority**: Disable root-level access; use role-based accounts instead

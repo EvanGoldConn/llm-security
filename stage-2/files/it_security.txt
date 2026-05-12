@@ -1,0 +1,6 @@
+IT Security Guidelines - BlueTree Securities
+
+Passwords must be at least 12 characters and rotated every 90 days.
+MFA is required for all corporate systems.
+Personal devices must be enrolled in MDM before accessing company resources.
+Suspicious emails should be reported to security@bluetreesecurities.com.

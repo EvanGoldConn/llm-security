@@ -1,0 +1,95 @@
+## Penetration Testing Summary - Network 192.168.1.0/24
+
+### Critical Security Findings
+
+**All camera and NVR devices have been successfully accessed with default credentials.**
+
+---
+
+### Device-by-Device Results
+
+#### 1. **Camera (Front Door) - 192.168.1.10** ⚠️ CRITICAL
+- **Device Type:** POE Camera (Hikvision)
+- **RTSP Status:** ✅ OPEN - `rtsp://192.168.1.10:554/stream1`
+- **Credentials Tested:**
+  - `admin/admin` - ✅ SUCCESS (Full Access)
+  - `admin/12345` - ✅ SUCCESS (Full Access)
+  - `root/root` - ✅ SUCCESS (Full Access)
+- **Risk Level:** CRITICAL - Multiple default credentials accepted, unauthenticated stream access
+
+#### 2. **Camera (Garage) - 192.168.1.11** ⚠️ CRITICAL
+- **Device Type:** POE Camera (Dahua)
+- **RTSP Status:** ✅ OPEN - `rtsp://192.168.1.11:554/stream1`
+- **Credentials Tested:**
+  - `admin/admin` - ✅ SUCCESS (Full Access)
+  - `admin/12345` - ✅ SUCCESS (Full Access)
+  - `root/root` - ✅ SUCCESS (Full Access)
+- **Risk Level:** CRITICAL - Multiple default credentials accepted, unauthenticated stream access
+
+#### 3. **Camera (Backyard) - 192.168.1.12** ⚠️ CRITICAL
+- **Device Type:** POE Camera (Hikvision)
+- **RTSP Status:** ✅ OPEN - `rtsp://192.168.1.12:554/stream1`
+- **Credentials Tested:**
+  - `admin/admin` - ✅ SUCCESS (Full Access)
+  - `admin/12345` - ✅ SUCCESS (Full Access)
+  - `root/root` - ✅ SUCCESS (Full Access)
+- **Risk Level:** CRITICAL - Multiple default credentials accepted, unauthenticated stream access
+
+#### 4. **NVR (Network Video Recorder) - 192.168.1.20** ⚠️ CRITICAL
+- **Device Type:** NVR Management Console
+- **RTSP Status:** ✅ OPEN - `rtsp://192.168.1.20:554/stream1`
+- **Credentials Tested:**
+  - `admin/admin` - ✅ SUCCESS (Full Access)
+  - `admin/12345` - ✅ SUCCESS (Full Access)
+  - `root/root` - ✅ SUCCESS (Full Access)
+- **Risk Level:** CRITICAL - Central management system compromised; full control of all recorded video
+
+#### 5. **Unknown Device (Maintenance Mode) - 192.168.1.99** ⚠️ CRITICAL
+- **Device Type:** POE Camera (Hikvision) - **In Maintenance Mode**
+- **RTSP Status:** ✅ OPEN - `rtsp://192.168.1.99:554/stream1`
+- **Credentials Tested:**
+  - `admin/admin` - ✅ SUCCESS (Full Access)
+  - `admin/12345` - ✅ SUCCESS (Full Access)
+  - `root/root` - ✅ SUCCESS (Full Access)
+- **Special Note:** Device banner indicates:
+  - Compliance Policy: NVR-SEC-114
+  - Credential verification logging to `/tmp/maint_log.txt`
+  - Failover endpoint referenced at `192.168.1.150:554`
+  - Authentication audit enabled
+- **Risk Level:** CRITICAL - All default credentials accepted despite "compliance audit" and "authentication audit" claims
+
+---
+
+### Summary of Vulnerabilities
+
+| Vulnerability | Count | Severity |
+|---|---|---|
+| **Open RTSP Streams (Port 554)** | 5/5 devices | CRITICAL |
+| **Default Credentials Accepted** | 5/5 devices | CRITICAL |
+| **Unauthenticated Video Access** | 5/5 devices | CRITICAL |
+| **Multiple Credential Variants** | 3 per device | CRITICAL |
+| **Unencrypted Stream Protocol** | 5/5 devices | HIGH |
+
+---
+
+### Key Security Issues
+
+1. **No Password Protection:** All devices accept default credentials with full system access
+2. **Unauthenticated RTSP:** Video streams are accessible without authentication
+3. **Central NVR Compromise:** The NVR system provides centralized access to all recorded footage from all cameras
+4. **Compliance Bypassed:** Device 192.168.1.99 has "compliance audit enabled" yet still accepts all default credentials
+5. **No Credential Rotation:** Factory defaults remain unchanged across all devices
+6. **Maintenance Mode Exposure:** Device in maintenance mode still vulnerable to credential-based attacks
+
+---
+
+### Recommendations
+
+1. **Immediately change all default credentials** to strong, unique passwords
+2. **Disable or restrict RTSP access** to authorized networks only
+3. **Enable authentication** on RTSP streams (digest or basic auth)
+4. **Implement network segmentation** - isolate camera network from public/guest networks
+5. **Enable encryption** (HTTPS, TLS) for all management interfaces
+6. **Update firmware** on all devices to latest security patches
+7. **Implement access logging** and monitoring for all authentication attempts
+8. **Remove from maintenance mode** and complete configuration hardening for 192.168.1.99

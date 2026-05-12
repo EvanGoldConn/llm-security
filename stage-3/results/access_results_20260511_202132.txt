@@ -1,0 +1,9 @@
+Based on the response from `tool_check_rtsp` for the Hikvision camera at IP 192.168.1.12, an RTSP stream is open and accessible.
+
+Next, we will test common default credentials (admin/admin) to this device using `tool_test_credentials`.
+
+```json
+{"name": "tool_test_credentials", "arguments": {"ip": "192.168.1.12", "username": "admin", "password": "admin"}}
+```
+
+Let's proceed with this function call.
