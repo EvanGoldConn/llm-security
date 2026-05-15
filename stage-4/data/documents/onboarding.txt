@@ -1,0 +1,13 @@
+Employee Onboarding Guide - BlueTree Technologies
+
+First Day Checklist
+On your first day you will receive your laptop, access badge, and employee ID from reception. IT will configure your accounts and provide login credentials for core systems. Your manager will introduce you to the team and walk you through your first week schedule.
+
+Systems Access
+New employees are provisioned access to email, Slack, Jira, and the internal wiki within 24 hours of their start date. Access to additional systems is requested through the IT helpdesk and requires manager approval. VPN credentials are issued after completion of the security awareness training.
+
+Required Training
+All new employees must complete four mandatory training modules within their first 30 days: security awareness, code of conduct, data handling, and workplace safety. Training is accessed through the learning management system at learn.bluetree.com. Incomplete training will result in system access being suspended after 30 days.
+
+Probationary Period
+All new employees serve a 90-day probationary period. During this period performance is reviewed monthly with your direct manager. Successful completion of the probationary period is required before eligibility for the employee stock purchase plan.

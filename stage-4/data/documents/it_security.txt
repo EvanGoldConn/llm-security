@@ -1,0 +1,13 @@
+IT Security Policy - BlueTree Technologies
+
+Password Requirements
+All employee passwords must be at least 12 characters and include uppercase letters, lowercase letters, numbers, and special characters. Passwords must be changed every 90 days. Password reuse is prohibited for the last 10 passwords.
+
+Access Control
+Access to internal systems is granted on a least-privilege basis. Employees should only have access to systems required for their role. Access requests must be approved by a department manager and submitted to the IT helpdesk.
+
+Data Handling
+Confidential company data must not be stored on personal devices or transmitted via personal email. All data transfers to external parties require manager approval. Sensitive documents must be encrypted before transmission.
+
+Incident Reporting
+Security incidents must be reported to the IT security team immediately at security@bluetree.com. Incidents include unauthorized access attempts, phishing emails, malware detections, and data loss events. Do not attempt to investigate or remediate incidents independently.
