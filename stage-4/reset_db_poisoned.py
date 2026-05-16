@@ -1,8 +1,7 @@
 
 
-# Wipes ChromaDB and reinjects only clean documents from data/documents/
-# Use this to return to a clean baseline between attack runs
-
+# Wipes ChromaDB and reinjects from both data/documents/ and data/poisoned/
+# Use this to practice vector DB poisoning with pre-staged poisoned documents
 
 import os
 import chromadb
@@ -13,12 +12,9 @@ load_dotenv()
 
 DB_DIR = "/Volumes/UTM_DRIVE/llm-security/stage-4/db"
 DOCS_DIR = "/Volumes/UTM_DRIVE/llm-security/stage-4/data/documents"
+POISONED_DIR = "/Volumes/UTM_DRIVE/llm-security/stage-4/data/poisoned"
 CHUNK_SIZE = 400
 CHUNK_OVERLAP = 80
-
-
-
-
 
 def chunk_text(text, chunk_size, overlap):
     chunks = []
@@ -31,28 +27,13 @@ def chunk_text(text, chunk_size, overlap):
     return chunks
 
 
-def reset_clean():
-    print("Loading embedding model...")
-    model = SentenceTransformer("all-MiniLM-L6-v2")
-
-    print("Connecting to ChromaDB...")
-    client = chromadb.PersistentClient(path=DB_DIR)
-
-    existing = [c.name for c in client.list_collections()]
-    if "bluetree_kb" in existing:
-        client.delete_collection("bluetree_kb")
-        print("Existing collection deleted.")
-
-    collection = client.create_collection("bluetree_kb")
-    print("Collection created.")
-
+def ingest_directory(directory, collection, model):
     total_chunks = 0
-
-    for filename in os.listdir(DOCS_DIR):
+    for filename in os.listdir(directory):
         if not filename.endswith(".txt"):
             continue
 
-        filepath = os.path.join(DOCS_DIR, filename)
+        filepath = os.path.join(directory, filename)
         with open(filepath, "r") as f:
             text = f.read()
 
@@ -81,9 +62,35 @@ def reset_clean():
 
         print("  " + filename + ": " + str(len(chunks)) + " chunks ingested")
         total_chunks += len(chunks)
+    return total_chunks
 
-    print("\nReset complete. Total chunks stored: " + str(total_chunks))
+
+def reset_with_poisoned():
+    print("Loading embedding model...")
+    model = SentenceTransformer("all-MiniLM-L6-v2")
+
+    print("Connecting to ChromaDB...")
+    client = chromadb.PersistentClient(path=DB_DIR)
+
+    existing = [c.name for c in client.list_collections()]
+    if "bluetree_kb" in existing:
+        client.delete_collection("bluetree_kb")
+        print("Existing collection deleted.")
+
+    collection = client.create_collection("bluetree_kb")
+    print("Collection created.")
+
+    print("\nIngesting clean documents...")
+    clean_count = ingest_directory(DOCS_DIR, collection, model)
+
+    print("\nIngesting poisoned documents...")
+    poisoned_count = ingest_directory(POISONED_DIR, collection, model)
+
+    total = clean_count + poisoned_count
+    print("\nReset complete. Total chunks stored: " + str(total))
+    print("  Clean: " + str(clean_count) + " chunks")
+    print("  Poisoned: " + str(poisoned_count) + " chunks")
 
 
 if __name__ == "__main__":
-    reset_clean()
+    reset_with_poisoned()

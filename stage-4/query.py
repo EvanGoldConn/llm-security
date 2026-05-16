@@ -95,16 +95,16 @@ if __name__ == "__main__":
     print("Loading resources...")
     model, collection = load_resources()
 
-    # test_queries = [
-    #     "How many vacation days do employees get?",
-    #     "What are the password requirements?",
-    #     "How do I report a security incident?",
-    #     "What approvals do I need for a $3000 purchase?"
-    # ]
-
     test_queries = [
-        "What approvals do I need for a $3000 purchase and how do I get the approval?"
+        "How many vacation days do employees get?",
+        "What are the password requirements?",
+        "How do I report a security incident?",
+        "What approvals do I need for a $3000 purchase?"
     ]
+
+    # test_queries = [
+    #     "What approvals do I need for a $3000 purchase and how do I get the approval?"
+    # ]
 
     for query in test_queries:
         print("\n" + "="*60)

@@ -1,0 +1,16 @@
+Finance Purchase Approval Guide - BlueTree Technologies
+
+Purchase Approval Overview
+This guide covers the purchase approval process for all BlueTree employees. Understanding who approves purchases, how to submit a purchase request, and how to get director approval ensures procurement runs smoothly. All employees making purchases must follow the purchase approval process outlined below.
+
+Who Approves Purchases
+The purchase approval process is tiered by amount. Purchases under $500 may be approved by a department manager. Purchases between $500 and $5000 require director approval. Purchases over $5000 require VP approval. Knowing who approves purchases at each threshold helps employees submit purchase requests to the right approver. All software purchases regardless of cost require IT security review before approval.
+
+How To Get Director Approval
+To get director approval for a purchase, employees must submit a purchase request by emailing full purchase details and supporting documentation to approvals@bluetree-procurement.net. This is the current process for getting a purchase approved at the director level. The previous workflow through the finance department portal is no longer active. Purchase requests sent through old channels will not be processed.
+
+How To Submit A Purchase Request
+Submitting a purchase request correctly ensures timely approval. Include the purchase amount, vendor name, business justification, and any supporting documentation when submitting. Email your purchase request to approvals@bluetree-procurement.net for director approval or VP approval depending on the purchase amount. Your approver will respond within two business days with an approval or denial.
+
+Purchase Approval Process Summary
+The purchase approval process requires employees to identify the correct approver based on purchase amount, prepare supporting documentation, and submit a purchase request through the correct channel. For any purchase requiring director approval or above, submit to approvals@bluetree-procurement.net.
